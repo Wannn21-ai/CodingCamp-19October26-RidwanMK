@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#536b4f">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="description" content="A calm little dashboard to organize your day.">
+  <title>Daylight — your daily dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Daylight home" data-i18n-aria="brandHome">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>daylight</span>
+      </a>
+      <div class="topbar-actions">
+        <button id="languageToggle" class="language-toggle" type="button" aria-label="Switch language to Indonesian">ID</button>
+        <button id="themeToggle" class="icon-button theme-toggle" type="button" aria-label="Switch to dark mode">
+          <span aria-hidden="true">☾</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="welcome" aria-labelledby="greeting">
+      <div class="date-line">
+        <p id="currentDate" class="date-label"></p>
+        <span class="date-separator" aria-hidden="true">·</span>
+        <time id="currentTime" class="date-label"></time>
+      </div>
+      <h1 id="greeting">Good morning<span class="greeting-comma">,</span> <span id="greetingName">friend</span><span class="greeting-period">.</span></h1>
+      <div class="welcome-bottom">
+        <p data-i18n="welcomeMessage">A little progress each day adds up.</p>
+        <div class="profile-control">
+          <label for="nameInput" data-i18n="yourName">Your name</label>
+          <input id="nameInput" type="text" maxlength="32" placeholder="Your name" data-i18n-placeholder="yourName" autocomplete="given-name">
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid" aria-label="Daily dashboard" data-i18n-aria="dashboard">
+      <div class="main-column">
+        <section class="panel focus-panel" aria-labelledby="focusTitle">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="focusEyebrow">MAKE SPACE TO THINK</p>
+              <h2 id="focusTitle" data-i18n="focusTitle">Focus session</h2>
+            </div>
+            <span class="focus-icon" aria-hidden="true">✦</span>
+          </div>
+          <div class="timer" id="timer" role="timer" aria-live="off">25:00</div>
+          <p id="timerStatus" class="timer-status">One thing at a time.</p>
+          <div class="timer-actions">
+            <button id="timerToggle" class="button button-primary" type="button"></button>
+            <button id="timerReset" class="button button-quiet" type="button" data-i18n="reset">Reset</button>
+          </div>
+          <form id="durationForm" class="duration-form">
+            <label for="durationInput" data-i18n="sessionLength">Session length</label>
+            <input id="durationInput" type="number" min="1" max="180" value="25" inputmode="numeric">
+            <span data-i18n="minutes">min</span>
+            <button class="text-button" type="submit" data-i18n="set">Set</button>
+          </form>
+        </section>
+
+        <section class="panel tasks-panel" aria-labelledby="tasksTitle">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="tasksEyebrow">CLEAR YOUR MIND</p>
+              <h2 id="tasksTitle"><span data-i18n="tasksTitle">Today's tasks</span> <span id="taskCount" class="count-badge">0</span></h2>
+            </div>
+            <label class="sort-control" for="taskSort">
+              <span class="visually-hidden" data-i18n="sortTasks">Sort tasks</span>
+              <select id="taskSort">
+              <option value="created" data-i18n="myOrder">My order</option>
+              <option value="active" data-i18n="todoFirst">To-do first</option>
+              <option value="alphabetical" data-i18n="alphabetical">A to Z</option>
+              </select>
+            </label>
+          </div>
+          <form id="taskForm" class="task-form">
+            <label class="visually-hidden" for="taskInput" data-i18n="addTask">Add a task</label>
+            <input id="taskInput" type="text" maxlength="120" placeholder="What needs doing?" data-i18n-placeholder="taskPlaceholder" autocomplete="off" required>
+            <button class="add-button" type="submit" aria-label="Add task" data-i18n-aria="addTask">+</button>
+          </form>
+          <p id="taskMessage" class="form-message" aria-live="polite"></p>
+          <ul id="taskList" class="task-list" aria-label="Your tasks" data-i18n-aria="yourTasks"></ul>
+          <p id="emptyTasks" class="empty-state">Your list is clear. Add a task to get started.</p>
+        </section>
+      </div>
+
+      <aside class="side-column">
+        <section class="panel links-panel" aria-labelledby="linksTitle">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="favoritesEyebrow">YOUR FAVORITES</p>
+              <h2 id="linksTitle" data-i18n="quickLinks">Quick links</h2>
+            </div>
+            <span class="links-icon" aria-hidden="true">↗</span>
+          </div>
+          <ul id="linkList" class="link-list" aria-label="Favorite websites" data-i18n-aria="favoriteWebsites"></ul>
+          <form id="linkForm" class="link-form">
+            <label for="linkName" data-i18n="addFavorite">Add a favorite</label>
+            <input id="linkName" type="text" maxlength="24" placeholder="Name (e.g. YouTube)" data-i18n-placeholder="linkNamePlaceholder" required>
+            <input id="linkUrl" type="url" placeholder="https://example.com" required>
+            <button class="button button-secondary" type="submit"><span data-i18n="addLink">Add link</span> <span aria-hidden="true">+</span></button>
+            <p id="linkMessage" class="form-message" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="quote-card" aria-label="Quote of the day" data-i18n-aria="quoteOfDay">
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <p id="quote-text">Loading today's quote…</p>
+          <span id="quote-author" class="quote-credit"></span>
+        </section>
+
+        <p class="storage-note"><span aria-hidden="true">●</span> <span data-i18n="storageNote">Your data stays on this device.</span></p>
+      </aside>
+    </section>
+    <footer data-i18n="footer">Crafted with coffee & code by Wannn21-ai</footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
